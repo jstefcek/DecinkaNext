@@ -1,0 +1,22 @@
+# Use alpine Python image
+FROM python:3.14.4-alpine
+WORKDIR /decinkanext
+
+# Install build dependencies for mysqlclient
+RUN apk add --no-cache --update gcc musl-dev mariadb-dev pkgconf
+
+# Install dependencies
+COPY Backend/requirements.txt /decinkanext/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy project files
+COPY ./Backend /decinkanext
+
+# Create logs directory
+RUN mkdir -p /decinkanext/logs
+
+# Expose Django port
+EXPOSE 8000
+
+# Run migrations and start the server
+CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]

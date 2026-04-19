@@ -1,0 +1,28 @@
+# ignore DS store
+.DS_Store
+
+# Environments
+.env
+.env*
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+!.env.example
+
+# Certificates
+*.crt
+*.key   
+*.pem
+
+# Logs
+*.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
