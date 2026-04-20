@@ -28,7 +28,7 @@ class DatabaseManager:
         """Context manager for database connections"""
         try:
             connection = self.engine.connect()
-            log.debug("Database connection established")
+            log.info("Database connection established")
             yield connection
         except SQLAlchemyError as e:
             log.error(f"Database connection error: {e}", exc_info=True)
@@ -44,7 +44,7 @@ class DatabaseManager:
         """Returns a list of dictionaries for all rows matching the query"""
         with self.get_db_connection() as conn:
             result = conn.execute(text(query_str), params or {})
-            log.debug(f"Executed query: \n{query_str} \nwith params: {params}. \nFetched rows count: {result.rowcount}")
+            log.info(f"Executed query: \n{query_str} \nwith params: {params}. \nFetched rows count: {result.rowcount}")
             return [dict(row) for row in result.mappings()]
 
     def fetch_one(self, query_str: str, params: Dict[str, Any] = None) -> Dict[str, Any]:
@@ -52,7 +52,7 @@ class DatabaseManager:
         with self.get_db_connection() as conn:
             result = conn.execute(text(query_str), params or {})
             row = result.mappings().first()
-            log.debug(f"Executed query: \n{query_str} \nwith params: {params}. \nFetched row: {row}")
+            log.info(f"Executed query: \n{query_str} \nwith params: {params}. \nFetched row: {row}")
             return dict(row) if row else None
 
     def execute(self, query_str: str, params: Dict[str, Any] = None) -> int:
@@ -75,8 +75,8 @@ class DatabaseManager:
 db_engine = DatabaseManager()
 
 try:
-    print("Testing DB connection...")
+    log.info("Testing DB connection...")
     db_engine.fetch_all("SELECT 1")
-    print("Connection successful!")
+    log.info("Connection successful!")
 except Exception as e:
-    print(f"Connection failed: {e}")
+    log.error(f"Connection failed: {e}")

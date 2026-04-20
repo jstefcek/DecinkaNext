@@ -7,4 +7,3 @@ class CoreConfig(AppConfig):
 
     def ready(self):
         from .engine import db_engine 
-        print("Core app is ready, db_engine imported.")
