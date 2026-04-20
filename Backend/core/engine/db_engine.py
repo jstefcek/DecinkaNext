@@ -73,10 +73,3 @@ class DatabaseManager:
         
 # Initialize a global instance of DatabaseManager to be used across the application
 db_engine = DatabaseManager()
-
-try:
-    log.info("Testing DB connection...")
-    db_engine.fetch_all("SELECT 1")
-    log.info("Connection successful!")
-except Exception as e:
-    log.error(f"Connection failed: {e}")
