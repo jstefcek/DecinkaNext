@@ -56,7 +56,7 @@ class DatabaseManager:
             return dict(row) if row else None
 
     def execute(self, query_str: str, params: Dict[str, Any] = None) -> int:
-        """For INSERT, UPDATE, DELETE. Returns the number of affected rows"""
+        """Used for insert, update, delete operations. Returns the number of affected rows."""
         with self.get_db_connection() as conn:
             result = conn.execute(text(query_str), params or {})
             conn.commit()
@@ -64,7 +64,7 @@ class DatabaseManager:
             return result.rowcount
 
     def insert_get_id(self, query_str: str, params: Dict[str, Any] = None) -> int:
-        """For INSERT, where you need to return the ID of the new row immediately"""
+        """Used for INSERT statements. Returns the ID of the newly inserted row"""
         with self.get_db_connection() as conn:
             result = conn.execute(text(query_str), params or {})
             conn.commit()
