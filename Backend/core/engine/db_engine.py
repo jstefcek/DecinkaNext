@@ -18,7 +18,8 @@ engine = create_engine(
 
 class DatabaseManager:
     """
-    Manage database connections and basic operations using SQLAlchemy.
+    Manage database connections and basic operations using SQLAlchemy with context managers for safe connection handling. 
+    Provides universal CRUD methods that can be used across the application with connection pooling and error handling.
     """
     def __init__(self):
         self.engine = engine
